@@ -23,12 +23,23 @@ for row in sheet.iter_rows(min_row=2, max_row=6, values_only=True):
     grades = row[1]     
     email_scores[emails] = grades
 
-# print(json.dumps(email_scores))
+
+def get_usernames():
+    usernames =[u_name[:u_name.find("@")] for u_name in email_scores]
+    return usernames
+
+def get_email_list():
+    email_list = [emailss for emailss in email_scores]
+    return email_list
+
+def get_grades():
+    grade = [grade for grade in email_scores.values()]
+    return grade
 
 # defining other variables to be used
-email_list = [emailss for emailss in email_scores]
-usernames =[u_name[:u_name.find("@")] for u_name in email_scores]
-grade = [grade for grade in email_scores.values()]
+# email_list = [emailss for emailss in email_scores]
+# usernames =[u_name[:u_name.find("@")] for u_name in email_scores]
+# grade = [grade for grade in email_scores.values()]
 
 
 # # testing what ive done
@@ -36,8 +47,11 @@ grade = [grade for grade in email_scores.values()]
 # print(grade)
 # print(username)
 
+get_email_list()
+get_grades()
+get_usernames()
 
-for (username, email, grde) in zip(usernames, email_list, grade):
+for (username, email, grde) in zip(get_usernames(), get_email_list(), get_grades()):
     pass_msg = f"Hi {username},\n congratulations, your score in the last test was {grde}, therefore you have qualified for the final stage. \nall the best"
 
     fail_msg = f"Dear {username} I am sorry to inform you that you scored {grde} in your interview test which is less than the pass mark,\nyour journey ends with us here and we wish you all the best"
@@ -61,3 +75,4 @@ for (username, email, grde) in zip(usernames, email_list, grade):
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(email_add, email_pass)
         smtp.send_message(msg)
+        
