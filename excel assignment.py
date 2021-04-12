@@ -7,11 +7,9 @@ from email.message import EmailMessage
 
 email_add = os.environ.get('MY_EMAIL')
 email_pass = os.environ.get('EMAIL_PASS')
-# already had set os.environ files 
 
 # loading the excel sheet 
 wb = load_workbook('email_test_scores.xlsx')
-# print(wb.sheetnames)
 sheet = wb.active
 
 # initialise a dict
@@ -68,4 +66,3 @@ for (username, email, grde) in zip(get_usernames(), get_email_list(), get_grades
 
     send_message(e_mesg=EmailMessage(), subject="Python Test message refactor test", email_add=email_add, email=email, message=check_draft())
     # send_message("Python test", EmailMessage(), email_add, email, check_draft())
-
